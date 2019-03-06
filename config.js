@@ -12,4 +12,4 @@ if(!err) {
     console.log("Error while connecting with database");
 }
 });
-module.exports = connection; 
+module.exports = connection;

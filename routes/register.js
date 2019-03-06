@@ -1,10 +1,6 @@
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-var express=require("express");
-var connection = require('./../config');
-
-
 module.exports.register=function(req,res){
 
 
