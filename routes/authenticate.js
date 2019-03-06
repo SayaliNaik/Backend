@@ -6,6 +6,17 @@ module.exports.authenticate=function(req,res){
     var email=req.body.email;
     var password=req.body.password;
 
+    // passport.use(new LocalStrategy(
+    //   function(email, password, done) {
+    //     User.findOne({ email: email }, function (err, user) {
+    //       if (err) { return done(err); }
+    //       if (!user) { return done(null, false); }
+    //       if (!user.verifyPassword(password)) { return done(null, false); }
+    //       return done(null, user);
+    //     });
+    //   }
+    // ));
+
 
     connection.query('SELECT * FROM user WHERE email = ?',[email], function (error, results, fields) {
       if (error) {
@@ -17,16 +28,19 @@ module.exports.authenticate=function(req,res){
 
         if(results.length >0){
           decrypted=bcrypt.compareSync(password, results[0].password)
-              if(password==decrypted){
-                res.json({
-                    status:true,
-                    message:'successfully authenticated'
-                })
+              if(decrypted){
+                // res.json({
+                //     status:true,
+                //     message:'successfully authenticated'
+                //
+                // })
+                res.redirect('http://localhost:3000/dashboard.html')
             }else{
-                res.json({
-                    status:false,
-                    message:"Email and password does not match"
-                 });
+                // res.json({
+                //     status:false,
+                //     message:"Email and password does not match"
+                //  });
+                res.redirect('http://localhost:3000/login.html')
             }
 
         }
